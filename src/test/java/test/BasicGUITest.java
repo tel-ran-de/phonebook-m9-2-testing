@@ -1,15 +1,11 @@
 package test;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import pages.LoginPage;
-import pages.MainPage;
-import pages.RegistrationConfirmationPage;
-import pages.RegistrationPage;
+import pages.*;
 import utils.FunctionalTest;
 
 import static org.junit.Assert.*;
@@ -19,9 +15,9 @@ import static org.junit.Assert.*;
 public class BasicGUITest extends FunctionalTest {
     LoginPage loginPage = new LoginPage(driver);
     MainPage mainPage;
-    private String user = System.currentTimeMillis() + ".taran@gmail.com";
-    private String wrongUser = System.currentTimeMillis() + ".tarangmail.com";
-    String password = "qatest01";
+    private String user = System.currentTimeMillis() + ".anna.yurchenko@me.com";
+    private String wrongUser = System.currentTimeMillis() + ".anna.urchenko@com";
+    String password = "yurchenko2009";
     String baseURL = "http://localhost:4200/";
     String signUpUrl = "http://localhost:4200/user/registration";
     private String confPassword = password;
@@ -58,8 +54,8 @@ public class BasicGUITest extends FunctionalTest {
     public void testCreateUser() {
         driver.get(signUpUrl);
         RegistrationPage registrationPage = new RegistrationPage(driver);
-        RegistrationConfirmationPage confirmationPage = registrationPage.register(user, password, confPassword);
-        assertEquals("Please, check your email and activate your account.", confirmationPage.getConfirmationPageText());
+        ActivateEmailPage confirmationPage = registrationPage.register(user, password, confPassword);
+        assertEquals("Please, check your email and activate your account.", ConfirmActivationPage());
         assertEquals("http://localhost:4200/user/activate-email", driver.getCurrentUrl());
         logger.info("Valid login test passed");
     }

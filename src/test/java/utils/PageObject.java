@@ -12,11 +12,13 @@ public class PageObject {
     private static final String ERROR_START = "\n\nElement not found in: ";
     private static final String ERROR_MIDDLE = " within: ";
     private static final String ERROR_END = " seconds!\n\n";
+
     public PageObject(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    public void waitForElementIsDispalyed(int seconds, WebElement element) {
+
+    public void waitForElementIsDisplayed(int seconds, WebElement element) {
         WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, seconds)
                 .ignoring(StaleElementReferenceException.class);
         wait.withMessage(ERROR_START + element + ERROR_MIDDLE + seconds + ERROR_END);
