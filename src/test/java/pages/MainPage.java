@@ -6,21 +6,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.PageObject;
 
-
-// User Page is not finished yet
 public class MainPage extends PageObject {
-    public MainPage(WebDriver driver) { super(driver);
+    public MainPage(WebDriver driver) {
+        super(driver);
     }
-
     @FindBy(xpath = "")
     private WebElement menuBtn;
 
     @FindBy(xpath = "")
     private WebElement settingsBtn;
 
+
     private void clickCreatePage() {
         menuBtn.click();
         driver.findElement(By.xpath("")).click();
     }
+
 
 }

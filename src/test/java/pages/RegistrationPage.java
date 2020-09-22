@@ -10,33 +10,23 @@ public class RegistrationPage extends PageObject {
         super(driver);
     }
 
-    // verified
+
+
     @FindBy(xpath = "//*[@id=\"defaultRegisterFormEmail\"]")
-    private WebElement emailField;
-
-    // verified
+    private WebElement loginCreateField;
     @FindBy(xpath = "/html/body/app-root/app-registration/form/div[2]/input")
-    private WebElement passwordField;
-
-    // verified
+    private WebElement setPassword;
     @FindBy(xpath = "/html/body/app-root/app-registration/form/div[3]/input")
-    private WebElement confirmPasswordField;
-
-    // verified
+    private WebElement confirmPassword;
     @FindBy(xpath = "/html/body/app-root/app-registration/form/button")
     private WebElement signUpBtn;
 
-    // verified
-    @FindBy(xpath = "/html/body/app-root/app-registration/form/a")
-    private WebElement loginBtn;
+    public RegistrationConfirmationPage register(String user, String password, String confPassword){
 
-    public ActivateEmailPage register(String user, String password, String confPassword){
-        emailField.sendKeys(user);
-        passwordField.sendKeys(password);
-        confirmPasswordField.sendKeys(confPassword);
+        loginCreateField.sendKeys(user);
+        setPassword.sendKeys(password);
+        confirmPassword.sendKeys(confPassword);
         signUpBtn.click();
-        loginBtn.click();
-        return new ActivateEmailPage(driver);
+        return new RegistrationConfirmationPage(driver);
     }
-
 }

@@ -12,9 +12,9 @@ public class BasicAPITest {
     CloseableHttpClient client;
     String baseURL = "http://localhost:8080/api/";
     HttpGet getRequest;  //request to server on url with user name
-    String email = "anna.yurchenko@me.com";
+    String email = "qatest.taran01@gmail.com";
     String user = "";
-    String password = "yurchenko2009";
+    String password = "qatest01";
     HttpResponse response;  //answer from server
     String auth;
     HttpPost postRequest;
