@@ -17,21 +17,32 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-
-
-
 public class FunctionalTest {
     protected static WebDriver driver;
     protected final Logger logger = LogManager.getLogger(getClass());
 
-    String user = System.currentTimeMillis() + ".taran@gmail.com";
-    String password = "qatest01";
+    String user = "anna.yurchenko@me.com";
+    String password = "yurchenko2009";
     String baseURL = "http://localhost:4200/";
     String signUpUrl = "http://localhost:4200/user/registration";
 
+    @BeforeClass
+    public static void setUp() {
+        System.setProperty("webdriver.chrome.driver", "/Users/Anna/Applications/chromedriver");
+
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().deleteAllCookies();
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        driver.close();
+    }
+
+    // Method gets invoked if the test fails for any reason:
     @Rule
     public final TestRule watchman = new TestWatcher() {
-        // This method gets invoked if the test fails for any reason:
         @Override
         protected void failed(Throwable e, Description description) {
             // Print out the error message:
@@ -41,20 +52,7 @@ public class FunctionalTest {
         }
     };
 
-    @BeforeClass
-    public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\soft\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().deleteAllCookies();
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        //  driver.quit();
-    }
-
+    // Create screenshot if an error exist(if test is failed)
     private void takeScreenShot(String methodName) {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
@@ -63,6 +61,4 @@ public class FunctionalTest {
             e.printStackTrace();
         }
     }
-
-
 }
