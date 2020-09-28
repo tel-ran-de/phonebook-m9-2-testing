@@ -7,7 +7,9 @@ import utils.PageObject;
 
 public class ActivateEmail extends PageObject {
 
-    public ActivateEmail(WebDriver driver) { super(driver); }
+    public ActivateEmail(WebDriver driver) {
+        super(driver);
+    }
 
     @FindBy(xpath = "/html/body/app-root/app-activate-email/main/section/div/h4")
     private WebElement messageToCheckEmail;
@@ -18,6 +20,6 @@ public class ActivateEmail extends PageObject {
 
     public String checkMessage() {
         return messageToCheckEmail.getText();
-    };
+    }
 
 }

@@ -6,23 +6,57 @@ import org.openqa.selenium.support.FindBy;
 import utils.PageObject;
 
 public class ForgotPassword extends PageObject {
-    public ForgotPassword(WebDriver driver) { super(driver);
+
+    public ForgotPassword(WebDriver driver) {
+        super(driver);
     }
 
-//    @FindBy(xpath = "//*[@id=\"defaultRegisterFormEmail\"]")
-    @FindBy(id = "defaultRegisterFormEmail")
+    @FindBy(id = "email")
     private WebElement emailField;
 
-    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/button")
-    private WebElement resetPasswordBtn;
+    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/div[3]/div")
+    private WebElement wrongEmail;
 
-    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/section/div/h4")
+    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/div[3]/div")
+    private WebElement emptyEmail;
+
+    // TODO: fix a bug. There is no text error message
+    @FindBy(xpath = "")
+    private WebElement userExistErrorMessage;
+
+    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/button")
+    private WebElement resetPasswordButton;
+
+    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/section")
     private WebElement confirmMessage;
 
-    public PasswordRecovery passRecover(String user) {
+    public void enterData(String user) {
         emailField.sendKeys(user);
-        resetPasswordBtn.click();
-        return new PasswordRecovery(driver);
+        clickOnWebElement(resetPasswordButton);
+    }
+
+    public boolean isResetMyPasswordButtonEnabled() {
+        return resetPasswordButton.isEnabled();
+    }
+
+    public String wrongEmail() {
+        return wrongEmail.getText();
+    }
+
+    public String email() {
+        return emailField.getText();
+    }
+
+    public String emptyEmail() {
+        return emptyEmail.getText();
+    }
+
+    public String message() {
+        return confirmMessage.getText();
+    }
+
+    public String userExistMessage() {
+        return userExistErrorMessage.getText();
     }
 
 }

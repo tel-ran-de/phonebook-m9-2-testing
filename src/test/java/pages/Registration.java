@@ -7,31 +7,46 @@ import utils.PageObject;
 
 public class Registration extends PageObject {
 
-    public Registration(WebDriver driver) { super(driver); }
+    public Registration(WebDriver driver) {
+        super(driver);
+    }
 
-    @FindBy(xpath = "//*[@id=\"defaultRegisterFormEmail\"]")
-//    @FindBy(id = "defaultRegisterFormEmail")
+    @FindBy(id = "email")
     private WebElement emailField;
 
-    @FindBy(xpath = "/html/body/app-root/app-registration/form/div[2]/input")
-//    @FindBy(id = "defaultRegisterFormPass")
+    @FindBy(id = "empty-email")
+    private WebElement emptyEmailField;
+
+    @FindBy(id = "wrong-email")
+    private WebElement wrongEmail;
+
+    @FindBy(id = "password")
     private WebElement passField;
 
-    @FindBy(xpath = "/html/body/app-root/app-registration/form/div[3]/input")
-//    @FindBy(id = "defaultRegisterFormConfPass")
+    @FindBy(id = "empty-password")
+    private WebElement emptyPasswordField;
+
+    @FindBy(id = "minimal-password")
+    private WebElement minPassword;
+
+    @FindBy(id = "maximal-password")
+    private WebElement maxPassword;
+
+    @FindBy(id = "not-match-password")
+    private WebElement passwordsDontMatch;
+
+    @FindBy(id = "confirm-password")
     private WebElement confPassField;
 
-    @FindBy(xpath = "/html/body/app-root/app-registration/form/button")
-//    @FindBy(id = "btnSignup")
+    @FindBy(id = "btn-signup")
     private WebElement signUpBtn;
 
-    @FindBy(xpath = "/html/body/app-root/app-registration/form/a")
-//    @FindBy(id = "btnLogin")
+    @FindBy(id = "btn-login")
     private WebElement loginBtn;
 
-    // TODO: find a path after fixing a bug (Vadik).user already exists
-    @FindBy(xpath = "/html/body/app-root/app-registration/form/div[4]/div")
-    private WebElement errorMessage;
+    // TODO: find a right id/path after fixing a bug (Vadik).
+    @FindBy(xpath = "")
+    private WebElement userExist;
 
     public void enterData(String email, String pass, String confirmPass) {
         this.emailField.sendKeys(email);
@@ -39,24 +54,48 @@ public class Registration extends PageObject {
         this.confPassField.sendKeys(confirmPass);
     }
 
-    public Registration register(String user, String password, String confPassword){
-        emailField.sendKeys(user);
-        passField.sendKeys(password);
-        confPassField.sendKeys(confPassword);
-        signUpBtn.click();
-        return null;
+    public void clickSignUp() {
+        clickOnWebElement(signUpBtn);
+    }
+
+    public void clickLogin() {
+        clickOnWebElement(loginBtn);
+    }
+
+    public boolean isLoginBtnEnabled() {
+        return loginBtn.isEnabled();
     }
 
     public boolean isSignUpBtnEnabled() {
         return signUpBtn.isEnabled();
     }
 
-    public boolean isErrorMessageDisplayed() {
-        return errorMessage.isDisplayed();
+    public String existedUser() {
+        return userExist.getText();
     }
 
-    public void clickSignUp() {
-        signUpBtn.click();
+    public String passwordShort() {
+        return minPassword.getText();
+    }
+
+    public String passwordLong() {
+        return maxPassword.getText();
+    }
+
+    public String passwordsDontMatch() {
+        return passwordsDontMatch.getText();
+    }
+
+    public String emailEmpty() {
+        return emptyEmailField.getText();
+    }
+
+    public String passwordEmpty() {
+        return emptyPasswordField.getText();
+    }
+
+    public String wrongEmail() {
+        return wrongEmail.getText();
     }
 
 }

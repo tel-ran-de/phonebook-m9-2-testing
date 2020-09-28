@@ -7,27 +7,42 @@ import utils.PageObject;
 
 public class Login extends PageObject {
 
-    public Login(WebDriver driver) { super(driver);
+    public Login(WebDriver driver) {
+        super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\"defaultRegisterFormEmail\"]")
-//    @FindBy(id = "defaultRegisterFormEmail")
+    @FindBy(id = "email")
     private WebElement emailField;
 
-    @FindBy(xpath = "/html/body/app-root/app-login/form/div[2]/input")
-//    @FindBy(id = "defaultRegisterFormPass")
+    @FindBy(id = "empty-email")
+    private WebElement emptyEmailField;
+
+    @FindBy(id = "wrong-email")
+    private WebElement wrongEmail;
+
+    @FindBy(id = "registration-password")
     private WebElement passwordField;
 
-    @FindBy(xpath = "/html/body/app-root/app-login/form/button")
-//    @FindBy(id = "btnLogin")
+    @FindBy(id = "empty-password")
+    private WebElement emptyPasswordField;
+
+    @FindBy(id = "minimal-password")
+    private WebElement minPassword;
+
+    @FindBy(id = "maximal-password")
+    private WebElement maxPassword;
+
+    @FindBy(id = "btn-login")
     private WebElement loginButton;
 
+    @FindBy(id = "btn-signup")
+    private WebElement signUpButton;
+
+    //TODO: no id (ask Vadik)
     @FindBy(xpath = "/html/body/app-root/app-login/form/div[5]/a")
     private WebElement forgotPasswordLink;
 
-    // main page = user page (by documentation)
-
-    public void enterDataToLogin(String email, String pass) {
+    public void enterData(String email, String pass) {
         this.emailField.sendKeys(email);
         this.passwordField.sendKeys(pass);
     }
@@ -36,23 +51,44 @@ public class Login extends PageObject {
         return loginButton.isEnabled();
     }
 
-    public MainPage login(String user, String password) {
-        emailField.sendKeys(user);
-        passwordField.sendKeys(password);
-        loginButton.click();
-        return new MainPage(driver);
-    }
-
-    public ForgotPassword forgotPass(){
-        forgotPasswordLink.click();
-        return new ForgotPassword(driver);
+    public boolean isSignUpButtonEnabled() {
+        return signUpButton.isEnabled();
     }
 
     public void clickLogin() {
-        loginButton.click();
+        clickOnWebElement(loginButton);
     }
 
-    public boolean isForgotPassLinkEnabled() {
+    public void clickSignUp() {
+        clickOnWebElement(signUpButton);
+    }
+
+    public void clickForgotPassword() {
+        clickOnWebElement(forgotPasswordLink);
+    }
+
+    public String emptyEmail() {
+        return emptyEmailField.getText();
+    }
+
+    public String wrongEmail() {
+        return wrongEmail.getText();
+    }
+
+    public String emptyPassword() {
+        return emptyPasswordField.getText();
+
+    }
+
+    public String shortPassword() {
+        return minPassword.getText();
+    }
+
+    public String longPassword() {
+        return maxPassword.getText();
+    }
+
+    public boolean isForgotPasswordLinkEnabled() {
         return forgotPasswordLink.isEnabled();
     }
 

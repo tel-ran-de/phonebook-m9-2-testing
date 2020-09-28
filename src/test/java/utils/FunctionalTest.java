@@ -21,11 +21,6 @@ public class FunctionalTest {
     protected static WebDriver driver;
     protected final Logger logger = LogManager.getLogger(getClass());
 
-    String user = "anna.yurchenko@me.com";
-    String password = "yurchenko2009";
-    String baseURL = "http://localhost:4200/";
-    String signUpUrl = "http://localhost:4200/user/registration";
-
     @BeforeClass
     public static void setUp() {
         System.setProperty("webdriver.chrome.driver", "/Users/Anna/Applications/chromedriver");

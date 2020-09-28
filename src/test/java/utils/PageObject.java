@@ -13,7 +13,7 @@ public class PageObject {
     private static final String ERROR_MIDDLE = " within: ";
     private static final String ERROR_END = " seconds!\n\n";
 
-    public PageObject(WebDriver driver){
+    public PageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
