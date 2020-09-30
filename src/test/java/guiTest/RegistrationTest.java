@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import pages.ActivateEmail;
 import pages.Registration;
 import utils.FunctionalTest;
 
@@ -15,6 +16,7 @@ import static utils.Constants.*;
 public class RegistrationTest extends FunctionalTest {
 
     Registration registration = new Registration(driver);
+    ActivateEmail activationEmail = new ActivateEmail(driver);
 
     @Before
     public void init() {
@@ -51,15 +53,19 @@ public class RegistrationTest extends FunctionalTest {
 
     @Test
     public void test06_newUserValidData_ActivateEmailPageIsDisplayed() throws InterruptedException {
-        registration.enterData("tran@test.de", PASSWORD, CONF_PASSWORD);
+        registration.enterData(USER, PASSWORD, CONF_PASSWORD);
+        assertTrue(registration.isSignUpBtnEnabled());
         registration.clickSignUp();
         Thread.sleep(5000);
         assertEquals(ACTIVATE_EMAIL_URL, driver.getCurrentUrl());
+        assertTrue(activationEmail.isMessageDisplayed());
+        assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
     }
 
     @Test
     public void test07_activatedUserData_UserExistErrorMessageIsDisplayed() {
         registration.enterData(USER, PASSWORD, CONF_PASSWORD);
+        assertTrue(registration.isSignUpBtnEnabled());
         registration.clickSignUp();
         assertEquals("User already exists.", registration.existedUser());
     }

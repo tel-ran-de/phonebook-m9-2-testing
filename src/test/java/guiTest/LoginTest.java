@@ -52,6 +52,7 @@ public class LoginTest extends FunctionalTest {
     @Test
     public void test06_loginAuthorisedUser_UserPageIsDisplayed() throws InterruptedException {
         login.enterData(USER, PASSWORD);
+        assertTrue(login.isLoginButtonEnabled());
         login.clickLogin();
         Thread.sleep(5000);
         assertEquals(USER_URL, driver.getCurrentUrl());
