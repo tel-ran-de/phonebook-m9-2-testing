@@ -56,4 +56,9 @@ public class FunctionalTest {
             e.printStackTrace();
         }
     }
+
+    public String currentUrl() {
+        return driver.getCurrentUrl();
+    }
+
 }

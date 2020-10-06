@@ -20,8 +20,7 @@ public class ForgotPassword extends PageObject {
     @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/div[3]/div")
     private WebElement emptyEmail;
 
-    // TODO: fix a bug. There is no text error message
-    @FindBy(xpath = "")
+    @FindBy(className = "alert")
     private WebElement userExistErrorMessage;
 
     @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/button")
@@ -29,6 +28,9 @@ public class ForgotPassword extends PageObject {
 
     @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/section")
     private WebElement confirmMessage;
+
+    @FindBy(xpath = "/html/body/app-root/app-forgot-password/app-header/nav/a")
+    private WebElement phonebookLabel;
 
     public void enterData(String user) {
         emailField.sendKeys(user);
@@ -57,6 +59,14 @@ public class ForgotPassword extends PageObject {
 
     public String userExistMessage() {
         return userExistErrorMessage.getText();
+    }
+
+    public boolean isLabelEnabled () {
+        return phonebookLabel.isEnabled();
+    }
+
+    public void clickLabel() {
+        clickOnWebElement(phonebookLabel);
     }
 
 }

@@ -46,30 +46,27 @@ public class LoginTest extends FunctionalTest {
     @Test
     public void test05_signUp_RegistrationPageIsDisplayed() {
         login.clickSignUp();
-        assertEquals(SIGN_UP_URL, driver.getCurrentUrl());
+        assertEquals(SIGN_UP_URL, currentUrl());
     }
 
     @Test
     public void test06_loginAuthorisedUser_UserPageIsDisplayed() throws InterruptedException {
-        login.enterData(USER, PASSWORD);
+        login.enterData("anna.yurchenko@me.com", "yurchenko2009");
         assertTrue(login.isLoginButtonEnabled());
         login.clickLogin();
         Thread.sleep(5000);
-        assertEquals(USER_URL, driver.getCurrentUrl());
+        assertEquals(USER_URL, currentUrl());
     }
 
-    // TODO: "forgot pass" id needed. Ask Vadik
     @Test
     public void test07_forgotPasswordLinkIsEnabled() {
         assertTrue(login.isForgotPasswordLinkEnabled());
     }
 
-    // TODO: "forgot pass" id needed
     @Test
     public void test08_forgotPasswordLink_ForgotPasswordPageIsDisplayed() throws InterruptedException {
         login.clickForgotPassword();
-        Thread.sleep(5000);
-        assertEquals(FORGOT_PASS_URL, driver.getCurrentUrl());
+        assertEquals(FORGOT_PASS_URL, currentUrl());
     }
 
     @Test
@@ -103,7 +100,6 @@ public class LoginTest extends FunctionalTest {
         assertEquals("Password must be at least 8 characters.", login.shortPassword());
     }
 
-    // TODO: no text. ask Vadik to fix
     @Test
     public void test14_longPass_ErrorMessageIsDisplayed() {
         login.enterData(USER, LONG_PASSWORD);
@@ -114,6 +110,13 @@ public class LoginTest extends FunctionalTest {
     public void test15_shortPass_loginButtonIsDisabled() {
         login.enterData(USER, SHORT_PASSWORD);
         assertFalse(login.isLoginButtonEnabled());
+    }
+
+    @Test
+    public void test16_loginUnauthorisedUser_ErrorMessageIsDisplayed() {
+        login.enterData("notexistinguser@com.de", "1234567890");
+        login.clickLogin();
+        assertEquals("Error! This user doesn't exist", login.wrongUser());
     }
 
 }

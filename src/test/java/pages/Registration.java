@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,8 +45,7 @@ public class Registration extends PageObject {
     @FindBy(id = "btn-login")
     private WebElement loginBtn;
 
-    // TODO: find a right id/path after fixing a bug (Vadik).
-    @FindBy(xpath = "")
+    @FindBy(xpath = "/html/body/app-root/app-registration/form/div[4]")
     private WebElement userExist;
 
     public void enterData(String email, String pass, String confirmPass) {
@@ -97,5 +97,6 @@ public class Registration extends PageObject {
     public String wrongEmail() {
         return wrongEmail.getText();
     }
+
 
 }

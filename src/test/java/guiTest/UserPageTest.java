@@ -24,12 +24,11 @@ public class UserPageTest extends FunctionalTest {
     }
 
     @Test
-    public void test01_logout_LoginPageIsDisabled() throws InterruptedException {
-        login.enterData(USER, PASSWORD);
+    public void test01_logout_LoginPageIsDisabled() {
+        login.enterData(ACTIVATED_USER, PASSWORD);
         login.clickLogin();
-        Thread.sleep(3000);
         userPage.logout();
-        assertEquals(LOGIN_URL, driver.getCurrentUrl());
+        assertEquals(LOGIN_URL, currentUrl());
     }
 
 }

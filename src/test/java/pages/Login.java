@@ -20,6 +20,9 @@ public class Login extends PageObject {
     @FindBy(id = "wrong-email")
     private WebElement wrongEmail;
 
+    @FindBy(id = "wrong-user")
+    private WebElement wrongUser;
+
     @FindBy(id = "registration-password")
     private WebElement passwordField;
 
@@ -38,8 +41,7 @@ public class Login extends PageObject {
     @FindBy(id = "btn-signup")
     private WebElement signUpButton;
 
-    //TODO: no id (ask Vadik)
-    @FindBy(xpath = "/html/body/app-root/app-login/form/div[5]/a")
+    @FindBy(id = "forgot-password")
     private WebElement forgotPasswordLink;
 
     public void enterData(String email, String pass) {
@@ -67,6 +69,10 @@ public class Login extends PageObject {
         clickOnWebElement(forgotPasswordLink);
     }
 
+    public String wrongUser() {
+        return wrongUser.getText();
+    }
+
     public String emptyEmail() {
         return emptyEmailField.getText();
     }
@@ -77,7 +83,6 @@ public class Login extends PageObject {
 
     public String emptyPassword() {
         return emptyPasswordField.getText();
-
     }
 
     public String shortPassword() {

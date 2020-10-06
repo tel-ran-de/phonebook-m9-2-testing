@@ -35,20 +35,27 @@ public class ForgotPasswordTest extends FunctionalTest {
     @Test
     public void test03_invalidEmail_ErrorMessageIsDisplayed() {
         forgotPass.enterData(INVALID_USER);
+        assertFalse(forgotPass.isResetMyPasswordButtonEnabled());
         assertEquals("Email must be a valid email address.", forgotPass.wrongEmail());
     }
 
     @Test
-    public void test04_enterRegisteredEmail_ConfirmMessageIsDisplayed() {
-        forgotPass.enterData(USER);
+    public void test04_activatedEmail_ConfirmMessageToResetIsDisplayed() {
+        forgotPass.enterData(ACTIVATED_USER);
         assertEquals("Please check your email and reset your password", forgotPass.message());
     }
 
-    // TODO: fix a bug on frontend. No message "Error! This user doesn't exist"
     @Test
-    public void test05_enterNotRegisteredEmail_ErrorMessageIsDisplayed() {
-        forgotPass.enterData(INVALID_USER);
-        assertEquals("Error! This user doesn't exist.", forgotPass.userExistMessage());
+    public void test05_notRegisteredEmail_ErrorMessageIsDisplayed() {
+        forgotPass.enterData("noname@me.com");
+        assertEquals("Error! This user doesn't exist", forgotPass.userExistMessage());
+    }
+
+    @Test
+    public void test06_label_LoginPageIsDisplayed() {
+        assertTrue(forgotPass.isLabelEnabled());
+        forgotPass.clickLabel();
+        assertEquals(LOGIN_URL, currentUrl());
     }
 
 }

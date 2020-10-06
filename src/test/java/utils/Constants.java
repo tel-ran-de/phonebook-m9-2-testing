@@ -8,7 +8,8 @@ public class Constants {
     public static final String FORGOT_PASS_URL = "http://localhost:4200/user/forgot-password";
 
     public static final String USER = "yurchenkotest1@gmail.com";
-    public static final String PASSWORD = "yurchenkotest1";
+    public static final String ACTIVATED_USER = "anna.yurchenko@me.com";
+    public static final String PASSWORD = "yurchenko2009";
     public static final String CONF_PASSWORD = PASSWORD;
     public static final String INVALID_USER = "Anna.telran,com";
     public static final String SHORT_PASSWORD = "111111";
