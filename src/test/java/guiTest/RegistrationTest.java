@@ -53,7 +53,7 @@ public class RegistrationTest extends FunctionalTest {
 
     @Test
     public void test06_newUserValidData_ActivateEmailPageIsDisplayed() throws InterruptedException {
-        registration.enterData("testing@dot.com", PASSWORD, CONF_PASSWORD);
+        registration.enterData("anna.yurchenko@me.com", PASSWORD, CONF_PASSWORD);
         assertTrue(registration.isSignUpBtnEnabled());
         registration.clickSignUp();
         Thread.sleep(5000);
@@ -120,28 +120,21 @@ public class RegistrationTest extends FunctionalTest {
     }
 
     @Test
-    public void test16_upperCaseEmail_UserCreated() throws InterruptedException {
-        registration.enterData("TERLRAN@MEX.COM", "12345678", "12345678");
-        assertTrue(registration.isSignUpBtnEnabled());
-        registration.clickSignUp();
-        Thread.sleep(5000);
-        assertEquals(ACTIVATE_EMAIL_URL, currentUrl());
-        assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
-    }
+    public void test16_createRandomUser_UserCreated() throws InterruptedException {
+        String user = "AnnA" + (int) (Math.random() * 10000) + "@gmail.com";
 
-    @Test
-    public void test17_capitalisedLettersInEmail_UserCreated() throws InterruptedException {
-        registration.enterData("New-Name@Org.de", PASSWORD, CONF_PASSWORD);
-        assertTrue(registration.isSignUpBtnEnabled());
+        registration.enterData(user, PASSWORD, CONF_PASSWORD);
         registration.clickSignUp();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         assertEquals(ACTIVATE_EMAIL_URL, currentUrl());
+        assertTrue(activationEmail.isMessageDisplayed());
         assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
     }
 
     @Test
     public void test18_numbersInEmail_UserCreated() throws InterruptedException {
-        registration.enterData("123-456@dot.com", PASSWORD, CONF_PASSWORD);
+        String user = (int) (Math.random() * 1000000) + "@gmail.com";
+        registration.enterData(user, PASSWORD, CONF_PASSWORD);
         assertTrue(registration.isSignUpBtnEnabled());
         registration.clickSignUp();
         Thread.sleep(5000);
@@ -169,10 +162,14 @@ public class RegistrationTest extends FunctionalTest {
 
     @Test
     public void tes22_fullMatchData_UserCreated() throws InterruptedException {
-        registration.enterData("1234@org.de", "1234@org.de", "1234@org.de");
+        String user = (int) (Math.random() * 10000) + "@org.de";
+        String password = user;
+        String confirmPassword = user;
+
+        registration.enterData(user, password, confirmPassword);
         assertTrue(registration.isSignUpBtnEnabled());
         registration.clickSignUp();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         assertEquals(ACTIVATE_EMAIL_URL, currentUrl());
         assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
     }

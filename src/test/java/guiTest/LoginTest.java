@@ -5,6 +5,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.Login;
+import pages.Registration;
 import utils.FunctionalTest;
 
 import static org.junit.Assert.*;
@@ -15,6 +16,7 @@ import static utils.Constants.*;
 public class LoginTest extends FunctionalTest {
 
     Login login = new Login(driver);
+    Registration registration = new Registration(driver);
 
     @Before
     public void init() {
@@ -78,6 +80,7 @@ public class LoginTest extends FunctionalTest {
     @Test
     public void test10_passwordFieldIsEmpty_ErrorMessageIsDisplayed() {
         login.enterData(USER, "");
+        registration.clickSignUp();
         assertEquals("Password is required.", login.emptyPassword());
     }
 
@@ -116,7 +119,14 @@ public class LoginTest extends FunctionalTest {
     public void test16_loginUnauthorisedUser_ErrorMessageIsDisplayed() {
         login.enterData("notexistinguser@com.de", "1234567890");
         login.clickLogin();
-        assertEquals("Error! This user doesn't exist", login.wrongUser());
+        assertEquals("Login or Password incorrect", login.wrongUser());
+    }
+
+    @Test
+    public void test17_loginExistingUserWithATypo_ErrorMessageIsDisplayed() {
+        login.enterData("anna.yurchenkoo@me.com", PASSWORD);
+        login.clickLogin();
+        assertEquals("Login or Password incorrect", login.wrongUser());
     }
 
 }

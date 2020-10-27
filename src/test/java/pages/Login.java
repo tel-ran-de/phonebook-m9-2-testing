@@ -20,13 +20,13 @@ public class Login extends PageObject {
     @FindBy(id = "wrong-email")
     private WebElement wrongEmail;
 
-    @FindBy(id = "wrong-user")
+    @FindBy(css = ".alert")
     private WebElement wrongUser;
 
     @FindBy(id = "registration-password")
     private WebElement passwordField;
 
-    @FindBy(id = "empty-password")
+    @FindBy(css = ".alert")
     private WebElement emptyPasswordField;
 
     @FindBy(id = "minimal-password")

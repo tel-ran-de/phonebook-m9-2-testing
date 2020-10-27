@@ -8,7 +8,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Before;
 
-public class UserAPITest {
+public class UserPageAPITest {
     CloseableHttpClient client;
 
     String baseURL = "http://localhost:8080/api/";

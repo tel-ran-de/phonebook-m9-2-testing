@@ -51,11 +51,4 @@ public class ForgotPasswordTest extends FunctionalTest {
         assertEquals("Error! This user doesn't exist", forgotPass.userExistMessage());
     }
 
-    @Test
-    public void test06_label_LoginPageIsDisplayed() {
-        assertTrue(forgotPass.isLabelEnabled());
-        forgotPass.clickLabel();
-        assertEquals(LOGIN_URL, currentUrl());
-    }
-
 }

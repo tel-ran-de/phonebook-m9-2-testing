@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import pages.ChangePassword;
 import pages.Login;
 import pages.UserPage;
 import utils.FunctionalTest;
@@ -16,17 +17,18 @@ import static utils.Constants.*;
 public class UserPageTest extends FunctionalTest {
 
     UserPage userPage = new UserPage(driver);
-    Login login = new Login(driver);
+    ChangePassword changePass = new ChangePassword(driver);
 
     @Before
     public void init() {
-        driver.get(USER_URL);
+        driver.get(LOGIN_URL);
+        Login login = new Login(driver);
+        login.enterData(ACTIVATED_USER, PASSWORD);
+        login.clickLogin();
     }
 
     @Test
-    public void test01_logout_LoginPageIsDisabled() {
-        login.enterData(ACTIVATED_USER, PASSWORD);
-        login.clickLogin();
+    public void test01_logout_LoginPageIsDisplayed() {
         userPage.logout();
         assertEquals(LOGIN_URL, currentUrl());
     }

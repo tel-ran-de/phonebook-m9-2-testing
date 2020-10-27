@@ -17,9 +17,6 @@ public class ForgotPassword extends PageObject {
     @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/div[3]/div")
     private WebElement wrongEmail;
 
-    @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/div[3]/div")
-    private WebElement emptyEmail;
-
     @FindBy(className = "alert")
     private WebElement userExistErrorMessage;
 
@@ -28,9 +25,6 @@ public class ForgotPassword extends PageObject {
 
     @FindBy(xpath = "/html/body/app-root/app-forgot-password/form/section")
     private WebElement confirmMessage;
-
-    @FindBy(xpath = "/html/body/app-root/app-forgot-password/app-header/nav/a")
-    private WebElement phonebookLabel;
 
     public void enterData(String user) {
         emailField.sendKeys(user);
@@ -49,24 +43,12 @@ public class ForgotPassword extends PageObject {
         return emailField.getText();
     }
 
-    public String emptyEmail() {
-        return emptyEmail.getText();
-    }
-
     public String message() {
         return confirmMessage.getText();
     }
 
     public String userExistMessage() {
         return userExistErrorMessage.getText();
-    }
-
-    public boolean isLabelEnabled () {
-        return phonebookLabel.isEnabled();
-    }
-
-    public void clickLabel() {
-        clickOnWebElement(phonebookLabel);
     }
 
 }
