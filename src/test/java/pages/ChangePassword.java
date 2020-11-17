@@ -14,25 +14,35 @@ public class ChangePassword extends PageObject {
     @FindBy(id = "password")
     private WebElement passwordField;
 
+    @FindBy(id = "confirmation-password")
+    private WebElement confirmPasswordField;
+
     @FindBy(id = "minimal-password")
     private WebElement minPassword;
 
     @FindBy(id = "maximal-password")
     private WebElement maxPassword;
 
-    @FindBy(css = "button")
-    private WebElement updateButton;
+    @FindBy(id = "not-match-password")
+    private WebElement passwordsDontMatch;
 
-    @FindBy(xpath = "message")
+    @FindBy(css = ".btn")
+    private WebElement changePasswordButton;
+
+    @FindBy(css = "h4")
     WebElement successMessage;
 
-    public void changePassword(String password) {
+    public void setPassword(String password, String confirmPassword) {
         this.passwordField.sendKeys(password);
-        this.updateButton.click();
+        this.confirmPasswordField.sendKeys(confirmPassword);
     }
 
-    public boolean isUpdateButtonEnabled() {
-        return updateButton.isEnabled();
+    public void clickChangePasswordBtn() {
+        clickOnWebElement(changePasswordButton);
+    }
+
+    public boolean isChangePasswordButtonEnabled() {
+        return changePasswordButton.isEnabled();
     }
 
     public String successMessage() {
@@ -45,6 +55,10 @@ public class ChangePassword extends PageObject {
 
     public String longPassword() {
         return maxPassword.getText();
+    }
+
+    public String passwordsDontMatch() {
+        return passwordsDontMatch.getText();
     }
 
 }

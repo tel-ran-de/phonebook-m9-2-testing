@@ -21,47 +21,48 @@ public class ChangePasswordTest extends FunctionalTest {
         Login login = new Login(driver);
         login.enterData(ACTIVATED_USER, PASSWORD);
         login.clickLogin();
+        userPage.clickChangePassword();
     }
 
     @Test
-    public void test01_noData_UpdateButtonIsDisabled() {
-        assertFalse(changePass.isUpdateButtonEnabled());
+    public void test01_noData_ChangePasswordButtonIsDisabled() {
+        assertFalse(changePass.isChangePasswordButtonEnabled());
     }
 
     @Test
     public void test02_setNewPassword_UpdateButtonEnabled() {
-        userPage.clickChangePassword();
-        changePass.changePassword(NEW_PASSWORD);
-        assertTrue(changePass.isUpdateButtonEnabled());
+        changePass.setPassword(NEW_PASSWORD, NEW_CONF_PASSWORD);
+        assertTrue(changePass.isChangePasswordButtonEnabled());
     }
 
     @Test
-    public void test03_changePassword_LoginPageIsDisplayed() throws InterruptedException {
-        userPage.clickChangePassword();
+    public void test03_changePassword_SuccessMessageIsDisplayed() throws InterruptedException {
         assertEquals(CHANGE_PASSWORD_URL, currentUrl());
-        changePass.changePassword(NEW_PASSWORD);
+        changePass.setPassword(NEW_PASSWORD, NEW_CONF_PASSWORD);
+        changePass.clickChangePasswordBtn();
         Thread.sleep(3000);
-        assertEquals(LOGIN_URL, currentUrl());
+        assertEquals("The password has been changed successfully", changePass.successMessage());
     }
 
     @Test
-    public void test04_changePassword_SuccessMessageIsDisplayed() throws InterruptedException {
-        userPage.clickChangePassword();
-        assertEquals(CHANGE_PASSWORD_URL, currentUrl());
-        changePass.changePassword(NEW_PASSWORD);
-        assertEquals("Password changed successfully!", changePass.successMessage());
+    public void test04_shortPass_ErrorMessageIsDisplayed() {
+        changePass.setPassword(SHORT_PASSWORD, SHORT_PASSWORD);
+        assertFalse(changePass.isChangePasswordButtonEnabled());
+        assertEquals("Password must be at least 8 characters long.", changePass.shortPassword());
     }
 
     @Test
-    public void test05_shortPass_ErrorMessageIsDisplayed() {
-        changePass.changePassword(SHORT_PASSWORD);
-        assertEquals("Password must be at least 8 characters.", changePass.shortPassword());
-    }
-
-    @Test
-    public void test06_longPass_ErrorMessageIsDisplayed() {
-        changePass.changePassword(LONG_PASSWORD);
+    public void test05_longPass_ErrorMessageIsDisplayed() {
+        changePass.setPassword(LONG_PASSWORD, LONG_PASSWORD);
+        assertFalse(changePass.isChangePasswordButtonEnabled());
         assertEquals("Password must be no longer than 20 characters.", changePass.longPassword());
+    }
+
+    @Test
+    public void test06_passwordsDontMatch_ErrorMessageIsDisplayed() {
+        changePass.setPassword(PASSWORD, SHORT_PASSWORD);
+        assertFalse(changePass.isChangePasswordButtonEnabled());
+        assertEquals("Passwords do not match.", changePass.passwordsDontMatch());
     }
 
 }

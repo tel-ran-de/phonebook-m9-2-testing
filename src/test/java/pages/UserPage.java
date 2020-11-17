@@ -6,49 +6,60 @@ import org.openqa.selenium.support.FindBy;
 import utils.PageObject;
 
 public class UserPage extends PageObject {
+
     public UserPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\"sidebar\"]/div/div/div/h6")
+    @FindBy(linkText = "Account")
     private WebElement loggedUser;
 
-    @FindBy(xpath = "//*[@id=\"content\"]/div/div/p")
-    private WebElement pageTitle;
-
-    @FindBy(xpath = "//*[@id=\"content\"]/div/div/app-contacts/div[2]/button\n")
-    private WebElement addNewContactButton;
-
-    @FindBy(xpath = "//*[@id=\"sidebar\"]/ul[1]/li[1]/a")
+    @FindBy(linkText = "Home")
     private WebElement home;
 
-    @FindBy(xpath = "//*[@id=\"sidebar\"]/ul[1]/li[2]/a")
+    @FindBy(linkText = "Account")
     private WebElement account;
 
-    @FindBy(xpath = "//*[@id=\"sidebar\"]/ul[1]/li[3]/a")
+    @FindBy(linkText = "Change password")
     private WebElement changePassword;
 
-    @FindBy(xpath = "//*[@id=\"sidebar\"]/ul[1]/li[4]/a")
+    @FindBy(linkText = "Logout")
     private WebElement logout;
 
-    @FindBy(xpath = "//*[@id=\"sidebar\"]/ul[2]/li/a")
-    private WebElement addNewContact;
+    @FindBy(linkText = "Add new Contact")
+    private WebElement addNewContactLink;
 
-    public void logout() {
-        clickOnWebElement(logout);
+    @FindBy(css = ".btn")
+    private WebElement addNewContactButton;
+
+    public boolean isLoggedUserDisplayed() {
+        return loggedUser.isDisplayed();
+    }
+
+    public boolean linksAreEnabled() {
+        home.isEnabled();
+        account.isEnabled();
+        changePassword.isEnabled();
+        logout.isEnabled();
+        addNewContactLink.isEnabled();
+        return true;
+    }
+
+    public UserPage clickHome() {
+        clickOnWebElement(home);
+        return new UserPage(driver);
     }
 
     public void clickChangePassword() {
         clickOnWebElement(changePassword);
     }
 
-//    public String shortPassword() {
-//        return minPassword.getText();
-//    }
-//
-//    public String longPassword() {
-//        return maxPassword.getText();
-//    }
+    public void logout() {
+        clickOnWebElement(logout);
+    }
 
+    public void clickAddNewContact() {
+        clickOnWebElement(addNewContactLink);
+    }
 
 }

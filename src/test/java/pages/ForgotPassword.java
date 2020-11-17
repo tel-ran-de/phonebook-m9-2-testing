@@ -39,10 +39,6 @@ public class ForgotPassword extends PageObject {
         return wrongEmail.getText();
     }
 
-    public String email() {
-        return emailField.getText();
-    }
-
     public String message() {
         return confirmMessage.getText();
     }

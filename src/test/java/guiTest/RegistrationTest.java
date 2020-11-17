@@ -52,11 +52,12 @@ public class RegistrationTest extends FunctionalTest {
     }
 
     @Test
-    public void test06_newUserValidData_ActivateEmailPageIsDisplayed() throws InterruptedException {
-        registration.enterData("anna.yurchenko@me.com", PASSWORD, CONF_PASSWORD);
-        assertTrue(registration.isSignUpBtnEnabled());
+    public void test06_createRandomUser_UserCreated() throws InterruptedException {
+        String user = "AnnA" + (int) (Math.random() * 10000) + "@gmail.com";
+
+        registration.enterData(user, PASSWORD, CONF_PASSWORD);
         registration.clickSignUp();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         assertEquals(ACTIVATE_EMAIL_URL, currentUrl());
         assertTrue(activationEmail.isMessageDisplayed());
         assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
@@ -120,48 +121,35 @@ public class RegistrationTest extends FunctionalTest {
     }
 
     @Test
-    public void test16_createRandomUser_UserCreated() throws InterruptedException {
-        String user = "AnnA" + (int) (Math.random() * 10000) + "@gmail.com";
-
-        registration.enterData(user, PASSWORD, CONF_PASSWORD);
-        registration.clickSignUp();
-        Thread.sleep(3000);
-        assertEquals(ACTIVATE_EMAIL_URL, currentUrl());
-        assertTrue(activationEmail.isMessageDisplayed());
-        assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
-    }
-
-    @Test
-    public void test18_numbersInEmail_UserCreated() throws InterruptedException {
+    public void test16_numbersInEmail_UserCreated() throws InterruptedException {
         String user = (int) (Math.random() * 1000000) + "@gmail.com";
         registration.enterData(user, PASSWORD, CONF_PASSWORD);
         assertTrue(registration.isSignUpBtnEnabled());
         registration.clickSignUp();
-        Thread.sleep(5000);
         assertEquals("Please, check your email and activate your account.", activationEmail.checkMessage());
     }
 
     // "а" from the russian keyboard
     @Test
-    public void test19_cyrillicInEmail_ErrorMessageIsDisplayed() {
+    public void test17_cyrillicInEmail_ErrorMessageIsDisplayed() {
         registration.enterData("аdmin@gmail.com", PASSWORD, PASSWORD);
         assertEquals("Email must be a valid email address.", registration.wrongEmail());
     }
 
     @Test
-    public void test20_symbolsInEmail_ErrorMessageIsDisplayed() {
+    public void test18_symbolsInEmail_ErrorMessageIsDisplayed() {
         registration.enterData("$,*,-,+@dot.com", PASSWORD, CONF_PASSWORD);
         assertEquals("Email must be a valid email address.", registration.wrongEmail());
     }
 
     @Test
-    public void test21_additionalAtSignSymbolInEmail_ErrorMessageIsDisplayed() {
+    public void test19_additionalAtSignSymbolInEmail_ErrorMessageIsDisplayed() {
         registration.enterData("mynew@user@gmail.com", PASSWORD, PASSWORD);
         assertEquals("Email must be a valid email address.", registration.wrongEmail());
     }
 
     @Test
-    public void tes22_fullMatchData_UserCreated() throws InterruptedException {
+    public void tes20_fullMatchData_UserCreated() throws InterruptedException {
         String user = (int) (Math.random() * 10000) + "@org.de";
         String password = user;
         String confirmPassword = user;
@@ -175,7 +163,7 @@ public class RegistrationTest extends FunctionalTest {
     }
 
     @Test
-    public void tes23_spaceInEmail_RegistrationFailed() {
+    public void tes21_spaceInEmail_RegistrationFailed() {
         registration.enterData("     @com.de", "test1234@com.de", "test1234@com.de");
         assertFalse(registration.isSignUpBtnEnabled());
         assertEquals("Email must be a valid email address.", registration.wrongEmail());
